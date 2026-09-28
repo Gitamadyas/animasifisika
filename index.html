@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studi Kasus Motor Listrik</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fa;color:#18202a}
+.container{max-width:900px;margin:30px auto;padding:18px}
+.scene{overflow:hidden;border-radius:18px;border:1px solid #d9dee7;background:linear-gradient(#dff1ff 0 54%,#eef0f2 54%);padding:22px}
+h1{font-size:26px;margin:0 0 6px}
+.subtitle{color:#667085;margin-bottom:18px}
+.sky{height:220px;position:relative}
+.cloud{position:absolute;background:white;border-radius:30px;width:90px;height:27px;opacity:.85}
+.cloud:before{content:"";position:absolute;width:38px;height:38px;background:white;border-radius:50%;left:18px;top:-15px}
+.cloud:after{content:"";position:absolute;width:30px;height:30px;background:white;border-radius:50%;left:48px;top:-9px}
+.c1{left:10%;top:25px}.c2{right:12%;top:60px;transform:scale(.8)}
+.road{position:absolute;left:0;right:0;bottom:0;height:70px;background:#656b73;border-top:4px solid #4e545b}
+.roadline{position:absolute;left:0;right:0;top:32px;border-top:5px dashed white}
+.mark{position:absolute;top:-34px;font-weight:bold;font-size:13px;color:#344054}
+.a{left:2%}.b{left:34%}.c{left:67%}.d{right:1%}
+
+/* Motor listrik menghadap ke kanan */
+.motor{position:absolute;left:2%;bottom:18px;width:92px;height:58px;z-index:5}
+.wheel{position:absolute;bottom:0;width:22px;height:22px;border:4px solid #1d2329;border-radius:50%;background:#cbd0d6}
+.w1{left:9px}.w2{right:8px}
+.frame{position:absolute;left:25px;bottom:20px;width:43px;height:9px;background:#26313a;border-radius:7px;transform:skew(-18deg)}
+.deck{position:absolute;left:26px;bottom:27px;width:31px;height:7px;background:#1d2730;border-radius:5px}
+.body{position:absolute;left:29px;bottom:30px;width:37px;height:15px;background:#344d60;border-radius:13px 18px 5px 8px}
+.seat{position:absolute;left:34px;bottom:45px;width:27px;height:7px;background:#151a20;border-radius:6px}
+.stem{position:absolute;right:18px;bottom:31px;width:5px;height:30px;background:#202830;transform:rotate(13deg);transform-origin:bottom}
+.handle{position:absolute;right:9px;bottom:59px;width:18px;height:5px;background:#202830;border-radius:5px}
+.lamp{position:absolute;right:7px;bottom:46px;width:8px;height:8px;border-radius:50%;background:#fff6b0;border:1px solid #777}
+.battery{position:absolute;left:33px;bottom:31px;width:22px;height:10px;background:#526b7b;border-radius:3px}
+.battery:after{content:"";position:absolute;right:-3px;top:3px;width:3px;height:4px;background:#526b7b}
+.info{display:flex;gap:10px;margin-top:12px}
+.card{flex:1;background:white;border:1px solid #d9dee7;border-radius:12px;padding:12px;text-align:center}
+.value{font-size:23px;font-weight:bold}.label{font-size:12px;color:#667085}
+.controls{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+button{border:0;border-radius:10px;padding:11px 17px;font-weight:bold;cursor:pointer;background:#2563eb;color:white}
+button.secondary{background:#e7ecf3;color:#253047}
+.questions{margin-top:18px;background:#fff;border:1px solid #d9dee7;border-radius:14px;padding:16px}
+.questions h2{font-size:19px;margin:0 0 10px}
+li{margin:10px 0;line-height:1.5}
+.note{font-size:13px;color:#667085;margin-top:14px}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="scene">
+<h1>⚡ Studi Kasus: Perjalanan Motor Listrik</h1>
+<div class="subtitle">Amati perjalanan motor listrik dari titik A menuju titik D. Perhatikan jarak dan waktu yang ditampilkan.</div>
+
+<div class="sky">
+<div class="cloud c1"></div>
+<div class="cloud c2"></div>
+<div class="road">
+<div class="roadline"></div>
+<div class="mark a">A — 0 m</div>
+<div class="mark b">B — 100 m</div>
+<div class="mark c">C — 200 m</div>
+<div class="mark d">D — 300 m</div>
+
+<div id="motor" class="motor" aria-label="Motor listrik menghadap ke kanan">
+<div class="wheel w1"></div>
+<div class="wheel w2"></div>
+<div class="frame"></div>
+<div class="deck"></div>
+<div class="body"></div>
+<div class="seat"></div>
+<div class="stem"></div>
+<div class="handle"></div>
+<div class="lamp"></div>
+<div class="battery"></div>
+</div>
+</div>
+</div>
+
+<div class="info">
+<div class="card"><div id="distance" class="value">0 m</div><div class="label">Jarak tempuh</div></div>
+<div class="card"><div id="time" class="value">0 s</div><div class="label">Waktu</div></div>
+</div>
+
+<div class="controls">
+<button id="start">▶ Mulai Animasi</button>
+<button id="pause" class="secondary">Ⅱ Jeda</button>
+<button id="reset" class="secondary">↻ Ulangi</button>
+</div>
+
+<div class="questions">
+<h2>📝 Pertanyaan</h2>
+<ol>
+<li>Berapa jarak yang ditempuh motor listrik dari titik A sampai titik D?</li>
+<li>Motor menempuh jarak tersebut dalam waktu 20 detik. Berapa kecepatan rata-rata motor listrik?</li>
+<li>Pada awal perjalanan, kecepatan motor adalah 5 m/s. Setelah 5 detik, kecepatannya menjadi 15 m/s. Berapa percepatan motor listrik?</li>
+<li>Jika motor bergerak dengan kecepatan rata-rata yang diperoleh pada nomor 2 selama 30 detik, berapa jarak yang ditempuh?</li>
+</ol>
+<div class="note">Catatan: kecepatan tidak ditampilkan dalam animasi agar dapat dihitung dari informasi yang tersedia.</div>
+</div>
+</div>
+</div>
+
+<script>
+const motor=document.getElementById("motor");
+const distance=document.getElementById("distance");
+const time=document.getElementById("time");
+let t=0, running=false, last=0, frame;
+
+function draw(){
+  const p=Math.min(t/20,1);
+  motor.style.left=(2+p*91)+"%";
+  distance.textContent=Math.round(p*300)+" m";
+  time.textContent=Math.round(p*20)+" s";
+}
+function animate(now){
+  if(!running)return;
+  if(!last)last=now;
+  t+=(now-last)/1000;
+  last=now;
+  if(t>=20){t=20;running=false}
+  draw();
+  if(running)frame=requestAnimationFrame(animate);
+}
+document.getElementById("start").onclick=()=>{
+  if(t>=20)t=0;
+  running=true;last=0;
+  cancelAnimationFrame(frame);
+  frame=requestAnimationFrame(animate);
+};
+document.getElementById("pause").onclick=()=>{
+  running=false;last=0;cancelAnimationFrame(frame);
+};
+document.getElementById("reset").onclick=()=>{
+  running=false;last=0;t=0;
+  cancelAnimationFrame(frame);
+  draw();
+};
+draw();
+</script>
+</body>
+</html>
